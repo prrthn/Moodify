@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Mood Input Section -->
+        <h1>How are you feeling today?</h1>
+        <div class="mood-form">
+            <label for="mood">Choose your mood:</label>
+            <select id="mood">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+            </select>
+            <button id="moodSubmit">Submit</button>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div id="content">
+            <h2 id="greeting"></h2>
+            <p id="cheerMessage"></p>
+        </div>
+    </div>
+
+    <!-- Confetti Library (For Happy Mode) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const happyCheers = [
+            "You're Awesome!",
+            "Keep Going, You're Doing Great!",
+            "You Can Do It!",
+            "Amazing Effort!",
+            "You're a Superstar!"
+        ];
+
+        const sadMessages = [
+            "It's okay to feel down.",
+            "Take a deep breath. Everything will be alright.",
+            "Remember, tough times don't last forever.",
+            "You are stronger than you think."
+        ];
+
+        const moodSelect = document.getElementById('mood');
+        const moodSubmit = document.getElementById('moodSubmit');
+        const greeting = document.getElementById('greeting');
+        const cheerMessage = document.getElementById('cheerMessage');
+
+        moodSubmit.addEventListener('click', function() {
+            const selectedMood = moodSelect.value;
+
+            if (selectedMood === 'happy') {
+                // Trigger happy mode
+                happyMode();
+            } else {
+                // Trigger sad mode
+                sadMode();
+            }
+        });
+
+        function happyMode() {
+            // Display greeting and cheer message
+            greeting.textContent = "Yay! So glad you're feeling happy!";
+            cheerMessage.textContent = happyCheers[Math.floor(Math.random() * happyCheers.length)];
+
+            // Trigger confetti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            // Apply happy theme styles
+            document.body.style.backgroundColor = "#f0f8ff";  // Light blue
+            greeting.style.color = "#ffcc00";  // Yellow
+            cheerMessage.style.color = "#008000";  // Green
+        }
+
+        function sadMode() {
+            // Display greeting and calming message
+            greeting.textContent = "It's okay to feel sad.";
+            cheerMessage.textContent = sadMessages[Math.floor(Math.random() * sadMessages.length)];
+
+            // Apply sad theme styles
+            document.body.style.backgroundColor = "#d3d3d3";  // Light grey
+            greeting.style.color = "#505050";  // Dark grey
+            cheerMessage.style.color = "#505050";  // Dark grey
+        }
+    </script>
+</body>
+</html>
